@@ -1,0 +1,636 @@
+{
+  "sampleData": {
+    "users": [
+      {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "password": "password123",
+        "budgetRange": {
+          "min": 500,
+          "max": 2000
+        },
+        "usageType": "work"
+      },
+      {
+        "name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "password": "securepass456",
+        "budgetRange": {
+          "min": 1500,
+          "max": 3500
+        },
+        "usageType": "gaming"
+      },
+      {
+        "name": "Mike Johnson",
+        "email": "mike.johnson@example.com",
+        "password": "mypassword789",
+        "budgetRange": {
+          "min": 800,
+          "max": 1500
+        },
+        "usageType": "student"
+      },
+      {
+        "name": "Sarah Williams",
+        "email": "sarah.williams@example.com",
+        "password": "sarahpass123",
+        "budgetRange": {
+          "min": 2000,
+          "max": 5000
+        },
+        "usageType": "creative"
+      },
+      {
+        "name": "David Brown",
+        "email": "david.brown@example.com",
+        "password": "davidpass456",
+        "budgetRange": {
+          "min": 1000,
+          "max": 2500
+        },
+        "usageType": "general"
+      }
+    ],
+    "predictions": [
+      {
+        "description": "High-end Gaming Laptop",
+        "ram": 16,
+        "weight": 2.1,
+        "company": "Dell",
+        "typename": "Gaming",
+        "opsys": "Windows",
+        "cpu": "Intel Core i9",
+        "gpu": "NVIDIA RTX 4090",
+        "touchscreen": true,
+        "ips": true,
+        "expectedPriceRange": "2500-3500 EUR"
+      },
+      {
+        "description": "Professional Ultrabook",
+        "ram": 16,
+        "weight": 1.2,
+        "company": "Apple",
+        "typename": "Ultrabook",
+        "opsys": "macOS",
+        "cpu": "Apple M2 Pro",
+        "gpu": "Apple GPU",
+        "touchscreen": false,
+        "ips": true,
+        "expectedPriceRange": "2000-2500 EUR"
+      },
+      {
+        "description": "Lightweight Ultrabook for Professionals",
+        "ram": 8,
+        "weight": 1.1,
+        "company": "HP",
+        "typename": "Ultrabook",
+        "opsys": "Windows",
+        "cpu": "Intel Core i7",
+        "gpu": "Intel Iris Xe",
+        "touchscreen": false,
+        "ips": true,
+        "expectedPriceRange": "1200-1600 EUR"
+      },
+      {
+        "description": "Budget Student Laptop",
+        "ram": 4,
+        "weight": 1.8,
+        "company": "Lenovo",
+        "typename": "Budget",
+        "opsys": "Windows",
+        "cpu": "AMD Ryzen 3",
+        "gpu": "AMD Radeon",
+        "touchscreen": false,
+        "ips": false,
+        "expectedPriceRange": "400-700 EUR"
+      },
+      {
+        "description": "Mid-range Work Laptop",
+        "ram": 8,
+        "weight": 1.6,
+        "company": "ASUS",
+        "typename": "Business",
+        "opsys": "Windows",
+        "cpu": "Intel Core i5",
+        "gpu": "Intel UHD",
+        "touchscreen": false,
+        "ips": true,
+        "expectedPriceRange": "700-1200 EUR"
+      },
+      {
+        "description": "Creative Professional Workstation",
+        "ram": 32,
+        "weight": 2.2,
+        "company": "Dell",
+        "typename": "Workstation",
+        "opsys": "Windows",
+        "cpu": "Intel Core i9",
+        "gpu": "NVIDIA RTX A5000",
+        "touchscreen": false,
+        "ips": true,
+        "expectedPriceRange": "3500-5000+ EUR"
+      },
+      {
+        "description": "Convertible 2-in-1 Laptop",
+        "ram": 8,
+        "weight": 1.4,
+        "company": "Lenovo",
+        "typename": "Convertible",
+        "opsys": "Windows",
+        "cpu": "Intel Core i7",
+        "gpu": "Intel Iris Xe",
+        "touchscreen": true,
+        "ips": true,
+        "expectedPriceRange": "1000-1500 EUR"
+      },
+      {
+        "description": "Gaming Laptop with RTX 3070",
+        "ram": 16,
+        "weight": 1.9,
+        "company": "MSI",
+        "typename": "Gaming",
+        "opsys": "Windows",
+        "cpu": "Intel Core i7",
+        "gpu": "NVIDIA RTX 3070",
+        "touchscreen": false,
+        "ips": true,
+        "expectedPriceRange": "1500-2000 EUR"
+      }
+    ],
+    "feedback": [
+      {
+        "accuracy": 5,
+        "comment": "The prediction was extremely accurate. The actual price matched the predicted price perfectly!"
+      },
+      {
+        "accuracy": 4,
+        "comment": "Very good prediction. Only off by about 10-15% from the actual price."
+      },
+      {
+        "accuracy": 3,
+        "comment": "Reasonable prediction but could be more accurate for high-end models."
+      },
+      {
+        "accuracy": 5,
+        "comment": "Excellent work! The ML model seems to understand laptop pricing very well."
+      },
+      {
+        "accuracy": 4,
+        "comment": "Good prediction. Had a few percent variance but overall acceptable."
+      }
+    ],
+    "interactions": [
+      {
+        "interactionType": "view",
+        "description": "User viewed a product"
+      },
+      {
+        "interactionType": "click",
+        "description": "User clicked on a product link"
+      },
+      {
+        "interactionType": "wishlist",
+        "description": "User added product to wishlist"
+      },
+      {
+        "interactionType": "compare",
+        "description": "User compared products"
+      },
+      {
+        "interactionType": "purchase",
+        "description": "User purchased a product"
+      }
+    ],
+    "userSettings": [
+      {
+        "theme": "dark",
+        "notifications": true,
+        "language": "en",
+        "currency": "EUR"
+      },
+      {
+        "theme": "light",
+        "notifications": false,
+        "language": "es",
+        "currency": "USD"
+      },
+      {
+        "theme": "dark",
+        "notifications": true,
+        "language": "fr",
+        "currency": "EUR"
+      }
+    ],
+    "laptopExamples": [
+      {
+        "name": "Dell XPS 15",
+        "brand": "dell",
+        "model": "XPS 15 9530",
+        "specifications": {
+          "ram": 32,
+          "storage": "1TB SSD",
+          "processor": "Intel Core i9-12900HK",
+          "gpu": "NVIDIA RTX 3050 Ti",
+          "displaySize": 15.6,
+          "resolution": "4K OLED",
+          "weight": 2.0,
+          "batteryLife": 12
+        },
+        "features": {
+          "touchscreen": true,
+          "ips": true,
+          "backlitKeyboard": true,
+          "fingerprintScanner": true
+        },
+        "price": {
+          "current": 2499,
+          "original": 2999,
+          "currency": "EUR"
+        },
+        "category": "ultrabook",
+        "tags": ["premium", "workstation", "4k-display"]
+      },
+      {
+        "name": "MacBook Pro 16",
+        "brand": "apple",
+        "model": "MacBook Pro 16 M2 Max",
+        "specifications": {
+          "ram": 16,
+          "storage": "512GB SSD",
+          "processor": "Apple M2 Max",
+          "gpu": "Apple GPU 10-core",
+          "displaySize": 16,
+          "resolution": "3456x2234",
+          "weight": 2.1,
+          "batteryLife": 18
+        },
+        "features": {
+          "touchscreen": false,
+          "ips": true,
+          "backlitKeyboard": true,
+          "fingerprintScanner": false
+        },
+        "price": {
+          "current": 2399,
+          "original": 2499,
+          "currency": "EUR"
+        },
+        "category": "ultrabook",
+        "tags": ["premium", "creative", "pro"]
+      },
+      {
+        "name": "ASUS ROG Zephyrus G14",
+        "brand": "asus",
+        "model": "ROG Zephyrus G14 GA401",
+        "specifications": {
+          "ram": 16,
+          "storage": "512GB SSD",
+          "processor": "Intel Core i9-12900H",
+          "gpu": "NVIDIA RTX 3080 Ti",
+          "displaySize": 14,
+          "resolution": "2560x1440",
+          "weight": 1.6,
+          "batteryLife": 10
+        },
+        "features": {
+          "touchscreen": false,
+          "ips": true,
+          "backlitKeyboard": true,
+          "fingerprintScanner": true
+        },
+        "price": {
+          "current": 1999,
+          "original": 2299,
+          "currency": "EUR"
+        },
+        "category": "gaming",
+        "tags": ["gaming", "portable", "high-performance"]
+      },
+      {
+        "name": "Lenovo ThinkPad X1 Carbon",
+        "brand": "lenovo",
+        "model": "X1 Carbon Gen 10",
+        "specifications": {
+          "ram": 16,
+          "storage": "512GB SSD",
+          "processor": "Intel Core i7-1280P",
+          "gpu": "Intel Iris Xe",
+          "displaySize": 14,
+          "resolution": "2560x1600",
+          "weight": 1.13,
+          "batteryLife": 15
+        },
+        "features": {
+          "touchscreen": false,
+          "ips": true,
+          "backlitKeyboard": true,
+          "fingerprintScanner": true
+        },
+        "price": {
+          "current": 1599,
+          "original": 1899,
+          "currency": "EUR"
+        },
+        "category": "business",
+        "tags": ["business", "portable", "productivity"]
+      },
+      {
+        "name": "HP Pavilion 15",
+        "brand": "hp",
+        "model": "Pavilion 15-eh1xxx",
+        "specifications": {
+          "ram": 8,
+          "storage": "256GB SSD",
+          "processor": "AMD Ryzen 5 5500U",
+          "gpu": "AMD Radeon Graphics",
+          "displaySize": 15.6,
+          "resolution": "1920x1080",
+          "weight": 1.74,
+          "batteryLife": 8
+        },
+        "features": {
+          "touchscreen": false,
+          "ips": false,
+          "backlitKeyboard": false,
+          "fingerprintScanner": false
+        },
+        "price": {
+          "current": 599,
+          "original": 799,
+          "currency": "EUR"
+        },
+        "category": "budget",
+        "tags": ["budget", "student", "everyday"]
+      }
+    ]
+  },
+  "testScenarios": {
+    "scenario1": {
+      "name": "New User Registration and Login",
+      "steps": [
+        {
+          "step": 1,
+          "action": "POST /api/auth/register",
+          "data": {
+            "name": "Test User",
+            "email": "testuser@example.com",
+            "password": "testpass123",
+            "budgetRange": {
+              "min": 500,
+              "max": 2000
+            },
+            "usageType": "work"
+          }
+        },
+        {
+          "step": 2,
+          "action": "POST /api/auth/login",
+          "data": {
+            "email": "testuser@example.com",
+            "password": "testpass123"
+          },
+          "expectedResult": "Returns JWT token"
+        }
+      ]
+    },
+    "scenario2": {
+      "name": "Price Prediction for Different Laptop Types",
+      "steps": [
+        {
+          "step": 1,
+          "action": "POST /api/predict",
+          "description": "Predict high-end gaming laptop price",
+          "data": {
+            "ram": 16,
+            "weight": 2.0,
+            "company": "Dell",
+            "typename": "Gaming",
+            "opsys": "Windows",
+            "cpu": "Intel Core i9",
+            "gpu": "NVIDIA RTX 4080",
+            "touchscreen": true,
+            "ips": true
+          }
+        },
+        {
+          "step": 2,
+          "action": "POST /api/predict",
+          "description": "Predict budget laptop price",
+          "data": {
+            "ram": 4,
+            "weight": 1.8,
+            "company": "Lenovo",
+            "typename": "Budget",
+            "opsys": "Windows",
+            "cpu": "AMD Ryzen 3",
+            "gpu": "AMD Radeon",
+            "touchscreen": false,
+            "ips": false
+          }
+        },
+        {
+          "step": 3,
+          "action": "GET /api/predict/history",
+          "expectedResult": "Returns all predictions for the user"
+        }
+      ]
+    },
+    "scenario3": {
+      "name": "Get Laptop Recommendations",
+      "steps": [
+        {
+          "step": 1,
+          "action": "GET /api/recommend/personalized",
+          "expectedResult": "Returns personalized recommendations based on user profile"
+        },
+        {
+          "step": 2,
+          "action": "GET /api/recommend/collaborative",
+          "expectedResult": "Returns collaborative filtering recommendations"
+        },
+        {
+          "step": 3,
+          "action": "POST /api/recommend/track",
+          "data": {
+            "laptopId": "LAPTOP_ID",
+            "interactionType": "view"
+          },
+          "expectedResult": "Tracks user interaction for recommendation improvement"
+        }
+      ]
+    },
+    "scenario4": {
+      "name": "User Profile Management",
+      "steps": [
+        {
+          "step": 1,
+          "action": "GET /api/auth/me",
+          "expectedResult": "Returns current user profile"
+        },
+        {
+          "step": 2,
+          "action": "PUT /api/auth/preferences",
+          "data": {
+            "budgetRange": {
+              "min": 1000,
+              "max": 3000
+            },
+            "usageType": "gaming"
+          },
+          "expectedResult": "Updates user preferences"
+        },
+        {
+          "step": 3,
+          "action": "GET /api/users/dashboard",
+          "expectedResult": "Returns user dashboard with statistics"
+        }
+      ]
+    },
+    "scenario5": {
+      "name": "Submit Prediction Feedback",
+      "steps": [
+        {
+          "step": 1,
+          "action": "POST /api/predict/feedback",
+          "data": {
+            "predictionId": "PREDICTION_ID",
+            "accuracy": 5,
+            "comment": "Excellent prediction! Very accurate."
+          },
+          "expectedResult": "Feedback submitted and stored"
+        }
+      ]
+    }
+  },
+  "apiEndpointsReference": {
+    "baseURL": "http://localhost:5001",
+    "endpoints": {
+      "authentication": [
+        {
+          "method": "POST",
+          "endpoint": "/api/auth/register",
+          "description": "Register a new user",
+          "requiresAuth": false
+        },
+        {
+          "method": "POST",
+          "endpoint": "/api/auth/login",
+          "description": "Login user and get JWT token",
+          "requiresAuth": false
+        },
+        {
+          "method": "GET",
+          "endpoint": "/api/auth/me",
+          "description": "Get current user profile",
+          "requiresAuth": true
+        },
+        {
+          "method": "PUT",
+          "endpoint": "/api/auth/profile",
+          "description": "Update user profile",
+          "requiresAuth": true
+        },
+        {
+          "method": "PUT",
+          "endpoint": "/api/auth/preferences",
+          "description": "Update user preferences",
+          "requiresAuth": true
+        }
+      ],
+      "prediction": [
+        {
+          "method": "POST",
+          "endpoint": "/api/predict",
+          "description": "Predict laptop price based on specifications",
+          "requiresAuth": false
+        },
+        {
+          "method": "GET",
+          "endpoint": "/api/predict/history",
+          "description": "Get user's prediction history",
+          "requiresAuth": true
+        },
+        {
+          "method": "POST",
+          "endpoint": "/api/predict/feedback",
+          "description": "Submit feedback on a prediction",
+          "requiresAuth": true
+        }
+      ],
+      "recommendations": [
+        {
+          "method": "GET",
+          "endpoint": "/api/recommend/personalized",
+          "description": "Get personalized recommendations",
+          "requiresAuth": true
+        },
+        {
+          "method": "GET",
+          "endpoint": "/api/recommend/collaborative",
+          "description": "Get collaborative filtering recommendations",
+          "requiresAuth": true
+        },
+        {
+          "method": "GET",
+          "endpoint": "/api/recommend/similar/:laptopId",
+          "description": "Get similar laptops to a specific one",
+          "requiresAuth": true
+        },
+        {
+          "method": "GET",
+          "endpoint": "/api/recommend/content-based/:laptopId",
+          "description": "Get content-based recommendations",
+          "requiresAuth": true
+        },
+        {
+          "method": "POST",
+          "endpoint": "/api/recommend/track",
+          "description": "Track user interaction with laptops",
+          "requiresAuth": true
+        }
+      ],
+      "userDashboard": [
+        {
+          "method": "GET",
+          "endpoint": "/api/users/dashboard",
+          "description": "Get user dashboard",
+          "requiresAuth": true
+        },
+        {
+          "method": "GET",
+          "endpoint": "/api/users/activity",
+          "description": "Get user activity logs",
+          "requiresAuth": true
+        },
+        {
+          "method": "PUT",
+          "endpoint": "/api/users/settings",
+          "description": "Update user settings",
+          "requiresAuth": true
+        },
+        {
+          "method": "GET",
+          "endpoint": "/api/users/export",
+          "description": "Export user data",
+          "requiresAuth": true
+        },
+        {
+          "method": "DELETE",
+          "endpoint": "/api/users/account",
+          "description": "Delete user account",
+          "requiresAuth": true
+        }
+      ]
+    }
+  },
+  "notes": {
+    "authentication": "Include JWT token in Authorization header: Bearer YOUR_JWT_TOKEN",
+    "contentType": "All requests should have Content-Type: application/json header",
+    "baseURL": "Default base URL is http://localhost:5001",
+    "predictionInputs": "RAM in GB, weight in kg, company name, type (Gaming/Ultrabook/Budget/etc), OS, CPU name, GPU name, boolean features",
+    "currency": "Prices are in EUR by default, can be converted to other currencies",
+    "limitedTokenAccess": "Some endpoints like /api/predict work without authentication (optional auth)",
+    "errorHandling": "All endpoints return standard error responses with status codes and error messages"
+  }
+}
