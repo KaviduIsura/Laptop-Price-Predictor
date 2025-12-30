@@ -15,6 +15,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const predictRoutes = require('./src/routes/predictRoutes');
 const recommendationRoutes = require('./src/routes/recommendationRoutes');
 const userRoutes = require('./src/routes/userRoutes');
+const laptopRoutes = require('./src/routes/laptopRoutes'); 
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -30,6 +31,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/predict', predictRoutes);
 app.use('/api/recommend', recommendationRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/laptops', laptopRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
