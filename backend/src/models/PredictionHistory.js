@@ -19,7 +19,7 @@ const predictionHistorySchema = new mongoose.Schema({
   },
   predictionResult: {
     price_euros: Number,
-    price_pkr: Number,
+    price_lkr: Number,
     confidence: { type: Number, default: 0.8 }
   },
   recommendations: [{
