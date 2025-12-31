@@ -1,7 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { authAPI } from '../services/api';
+import { authService } from '../services/auth';
 
 const AuthContext = createContext();
+
+// Export useAuth hook
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -10,9 +12,8 @@ export const useAuth = () => {
   return context;
 };
 
-
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(authService.getUser());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,13 +21,18 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checkAuth = async () => {
-    const token = localStorage.getItem('token');
+    const token = authService.getToken();
     if (token) {
       try {
-        const response = await authAPI.getProfile();
-        setUser(response.data.user);
+        const response = await authService.getProfile();
+        if (response.success) {
+          setUser(response.data.user);
+          authService.setUser(response.data.user);
+        } else {
+          authService.logout();
+        }
       } catch (error) {
-        localStorage.removeItem('token');
+        authService.logout();
       }
     }
     setLoading(false);
@@ -34,35 +40,56 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await authAPI.login({ email, password });
-      const { token, user } = response.data;
-      localStorage.setItem('token', token);
-      setUser(user);
-      return { success: true };
+      const result = await authService.login(email, password);
+      if (result.success) {
+        const { token, user } = result.data;
+        authService.setToken(token);
+        authService.setUser(user);
+        setUser(user);
+        return { success: true };
+      }
+      return result;
     } catch (error) {
-      return { success: false, error: error.response?.data?.error || 'Login failed' };
+      return { 
+        success: false, 
+        error: 'Login failed. Please try again.' 
+      };
     }
   };
 
   const register = async (userData) => {
     try {
-      const response = await authAPI.register(userData);
-      const { token, user } = response.data;
-      localStorage.setItem('token', token);
-      setUser(user);
-      return { success: true };
+      const result = await authService.register(userData);
+      if (result.success) {
+        const { token, user } = result.data;
+        authService.setToken(token);
+        authService.setUser(user);
+        setUser(user);
+        return { success: true };
+      }
+      return result;
     } catch (error) {
-      return { success: false, error: error.response?.data?.error || 'Registration failed' };
+      return { 
+        success: false, 
+        error: 'Registration failed. Please try again.' 
+      };
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    authService.logout();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      login, 
+      register, 
+      logout, 
+      loading,
+      isAuthenticated: !!user 
+    }}>
       {children}
     </AuthContext.Provider>
   );

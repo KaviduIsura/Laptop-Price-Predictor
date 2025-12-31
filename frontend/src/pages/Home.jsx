@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import ProductCardGrid from '../components/product/ProductCardGrid';
-import { laptopAPI, recommendationAPI } from '../services/api';
-import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import ProductCardGrid from "../components/product/ProductCardGrid";
+import { laptopAPI, recommendationAPI } from "../services/api";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
+import RecommendationWidget from "../components/recommendations/RecommendationWidget";
 
 const Home = () => {
   const [featuredLaptops, setFeaturedLaptops] = useState([]);
@@ -19,25 +20,25 @@ const Home = () => {
       // Load featured laptops (in real app, this would be an API call)
       const laptops = await laptopAPI.getAll({ limit: 8 });
       setFeaturedLaptops(laptops.data?.laptops || []);
-      
+
       // Load personalized recommendations if user is logged in
       if (user) {
         const recs = await recommendationAPI.getPersonalized();
         setRecommendations(recs.data?.recommendations || []);
       }
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.error("Error loading data:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const categories = [
-    { name: 'Gaming', icon: '🎮', count: 45 },
-    { name: 'Business', icon: '💼', count: 32 },
-    { name: 'Student', icon: '📚', count: 28 },
-    { name: 'Creative', icon: '🎨', count: 19 },
-    { name: 'Budget', icon: '💰', count: 67 },
+    { name: "Gaming", icon: "🎮", count: 45 },
+    { name: "Business", icon: "💼", count: 32 },
+    { name: "Student", icon: "📚", count: 28 },
+    { name: "Creative", icon: "🎨", count: 19 },
+    { name: "Budget", icon: "💰", count: 67 },
   ];
 
   return (
@@ -81,13 +82,18 @@ const Home = () => {
               >
                 <div className="text-3xl mb-2">{category.icon}</div>
                 <div className="font-medium">{category.name}</div>
-                <div className="text-sm text-gray-500">{category.count} laptops</div>
+                <div className="text-sm text-gray-500">
+                  {category.count} laptops
+                </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Recommendations */}
+      {user && <RecommendationWidget />}
+      
       {/* Featured Laptops */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
@@ -97,7 +103,7 @@ const Home = () => {
               View All →
             </Link>
           </div>
-          
+
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {[...Array(4)].map((_, i) => (
@@ -125,7 +131,10 @@ const Home = () => {
             <h2 className="text-2xl font-bold mb-8">Recommended For You</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {recommendations.slice(0, 3).map((rec) => (
-                <div key={rec.laptop?._id} className="bg-white rounded-lg p-6 border">
+                <div
+                  key={rec.laptop?._id}
+                  className="bg-white rounded-lg p-6 border"
+                >
                   <div className="flex items-start space-x-4">
                     <img
                       src={rec.laptop?.images?.[0]}
@@ -139,7 +148,9 @@ const Home = () => {
                       </div>
                       <div className="mt-2">
                         {rec.reasons?.map((reason, i) => (
-                          <div key={i} className="text-sm text-green-600">✓ {reason}</div>
+                          <div key={i} className="text-sm text-green-600">
+                            ✓ {reason}
+                          </div>
                         ))}
                       </div>
                       <Link
@@ -162,7 +173,8 @@ const Home = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Not Sure About Prices?</h2>
           <p className="text-xl mb-8 opacity-90">
-            Use our AI-powered price predictor to know the fair price for any laptop configuration
+            Use our AI-powered price predictor to know the fair price for any
+            laptop configuration
           </p>
           <Link
             to="/predict"
