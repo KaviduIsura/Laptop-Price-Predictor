@@ -45,6 +45,15 @@ export const recommendationAPI = {
   getSimilar: (laptopId) => api.get(`/recommend/similar/${laptopId}`),
   getContentBased: (laptopId) => api.get(`/recommend/content-based/${laptopId}`),
   trackInteraction: (data) => api.post('/recommend/track', data),
+    trackInteraction: (data) => 
+    axios.post('/api/recommend/track-view', data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }),
+
+     trackInteraction: (data) => 
+    axios.post('/api/recommend/track', data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }),
 };
 
 // Prediction endpoints

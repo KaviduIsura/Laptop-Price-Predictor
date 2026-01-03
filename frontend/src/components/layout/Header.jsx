@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Search, User, Heart, ShoppingCart, Menu, X, Laptop, GamepadIcon, Briefcase, GraduationCap, DollarSign, Smartphone } from 'lucide-react';
+import { 
+  Search, User, Heart, ShoppingCart, Menu, X, 
+  Laptop, GamepadIcon, Briefcase, GraduationCap, 
+  DollarSign, Smartphone, Sparkles 
+} from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { Link, useNavigate } from 'react-router-dom';
@@ -163,9 +167,6 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="text-2xl font-bold text-blue-600">LaptopStore</div>
-            {/* <span className="hidden sm:inline text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">
-              {loading ? '...' : `${categories.reduce((sum, cat) => sum + (cat.count || 0), 0)}+ Laptops`}
-            </span> */}
           </Link>
 
           {/* Search Bar - Desktop */}
@@ -223,6 +224,15 @@ const Header = () => {
                       >
                         <Laptop className="w-4 h-4 mr-2" />
                         Price Predictor
+                      </Link>
+                      {/* Recommendations Link */}
+                      <Link 
+                        to="/recommendations" 
+                        className="flex items-center px-4 py-2 hover:bg-gray-100"
+                        onClick={handleDropdownLinkClick}
+                      >
+                        <Sparkles className="w-4 h-4 mr-2" />
+                        Recommendations
                       </Link>
                       <Link 
                         to="/wishlist" 
@@ -436,6 +446,14 @@ const Header = () => {
                   className="flex items-center py-2 text-gray-700 hover:text-blue-600"
                 >
                   <span>🤖 Price Predictor</span>
+                </Link>
+                {/* Recommendations Link for Mobile */}
+                <Link 
+                  to="/recommendations" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center py-2 text-gray-700 hover:text-blue-600"
+                >
+                  <span>✨ Recommendations</span>
                 </Link>
                 <Link 
                   to="/deals" 

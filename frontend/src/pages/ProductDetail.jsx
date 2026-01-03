@@ -31,16 +31,20 @@ const ProductDetail = () => {
   const loadProduct = async () => {
     try {
       setLoading(true);
+      
       // Load product details
       const response = await laptopAPI.getById(id);
       
       // Check response structure
       if (response.data && response.data.success) {
-        // If your backend returns { success: true, laptop: {...} }
         setLaptop(response.data.laptop || response.data);
       } else {
-        // If your backend returns just the laptop object
         setLaptop(response.data);
+      }
+      
+      // TRACK PRODUCT VIEW - ADD THIS
+      if (user && id) {
+        await trackProductView(id);
       }
       
       // Load similar laptops based on category
@@ -49,11 +53,10 @@ const ProductDetail = () => {
         const similarResponse = await laptopAPI.getAll({
           category: category,
           limit: 4,
-          exclude: id // You might need to filter this on backend
+          exclude: id
         });
         
         if (similarResponse.data?.laptops) {
-          // Filter out the current laptop
           const filtered = similarResponse.data.laptops
             .filter(item => item._id !== id)
             .slice(0, 4);
@@ -66,6 +69,38 @@ const ProductDetail = () => {
       showToast('Failed to load product details', 'error');
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ADD THIS FUNCTION TO TRACK VIEWS
+  const trackProductView = async (laptopId) => {
+    if (!user || !laptopId) {
+      console.log('Not tracking - user not logged in or no laptopId');
+      return;
+    }
+    
+    try {
+      console.log('Tracking view for laptop:', laptopId);
+      
+      // Call your API to track the view
+      const response = await fetch('/api/users/track-view', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ laptopId })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error('Failed to track view:', data.error);
+      } else {
+        console.log('View tracked successfully:', data);
+      }
+    } catch (error) {
+      console.error('Error tracking product view:', error);
     }
   };
 

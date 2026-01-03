@@ -1,3 +1,5 @@
+// At the top of userController.js, add the Laptop import
+const Laptop = require('../models/Laptop');  // Add this line
 const User = require('../models/User');
 const UserPreference = require('../models/UserPreference');
 const PredictionHistory = require('../models/PredictionHistory');
@@ -16,17 +18,52 @@ const userController = {
       const recentPredictions = await PredictionHistory.find({ userId })
         .sort({ createdAt: -1 })
         .limit(5)
-        .populate('recommendations.laptopId', 'name brand');
+        .populate('recommendations.laptopId', 'name brand price.current images');
+      
+      // Get recent viewed laptops from preferences
+      const recentViews = preferences && preferences.viewedLaptops && preferences.viewedLaptops.length > 0 
+        ? preferences.viewedLaptops
+            .sort((a, b) => new Date(b.viewedAt) - new Date(a.viewedAt))
+            .slice(0, 5)
+        : [];
+      
+      // Get laptop details for viewed items
+      const viewedLaptops = await Promise.all(
+        recentViews.map(async (view) => {
+          try {
+            const laptop = await Laptop.findById(view.laptopId)
+              .select('name brand price.current specifications.ram specifications.processor images');
+            return {
+              ...view.toObject(),
+              laptop: laptop || null
+            };
+          } catch (error) {
+            console.error('Error fetching laptop for view:', error);
+            return {
+              ...view.toObject(),
+              laptop: null
+            };
+          }
+        })
+      );
       
       // Get saved laptops
-      const savedLaptops = preferences ? await Promise.all(
+      const savedLaptops = preferences && preferences.savedLaptops ? await Promise.all(
         preferences.savedLaptops.slice(0, 5).map(async (saved) => {
-          const laptop = await require('../models/Laptop').findById(saved.laptopId)
-            .select('name brand price.current specifications images');
-          return {
-            ...saved.toObject(),
-            laptop
-          };
+          try {
+            const laptop = await Laptop.findById(saved.laptopId)
+              .select('name brand price.current specifications images');
+            return {
+              ...saved.toObject(),
+              laptop: laptop || null
+            };
+          } catch (error) {
+            console.error('Error fetching laptop for saved item:', error);
+            return {
+              ...saved.toObject(),
+              laptop: null
+            };
+          }
         })
       ) : [];
       
@@ -42,6 +79,7 @@ const userController = {
         user,
         preferences,
         recentPredictions,
+        viewedLaptops,  // Make sure this is included
         savedLaptops,
         stats
       });
@@ -118,29 +156,33 @@ const userController = {
       const preferences = await UserPreference.findOne({ userId: req.user.id });
       if (preferences && preferences.viewedLaptops.length > 0) {
         const recentViews = preferences.viewedLaptops
-          .sort((a, b) => b.viewedAt - a.viewedAt)
+          .sort((a, b) => new Date(b.viewedAt) - new Date(a.viewedAt))
           .slice(0, limit / 2);
         
         for (const view of recentViews) {
-          const laptop = await require('../models/Laptop').findById(view.laptopId)
-            .select('name brand price.current');
-          
-          if (laptop) {
-            activities.push({
-              type: 'view',
-              date: view.viewedAt,
-              data: {
-                laptopName: laptop.name,
-                brand: laptop.brand,
-                price: laptop.price.current
-              }
-            });
+          try {
+            const laptop = await Laptop.findById(view.laptopId)
+              .select('name brand price.current');
+            
+            if (laptop) {
+              activities.push({
+                type: 'view',
+                date: view.viewedAt,
+                data: {
+                  laptopName: laptop.name,
+                  brand: laptop.brand,
+                  price: laptop.price.current
+                }
+              });
+            }
+          } catch (error) {
+            console.error('Error fetching laptop for activity:', error);
           }
         }
       }
       
       // Sort all activities by date
-      activities.sort((a, b) => b.date - a.date);
+      activities.sort((a, b) => new Date(b.date) - new Date(a.date));
       
       res.json({
         success: true,

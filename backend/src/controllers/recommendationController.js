@@ -249,58 +249,81 @@ const recommendationController = {
   },
   
   // Track user interaction
-  trackInteraction: async (req, res) => {
-    try {
-      const { laptopId, interactionType, rating, note } = req.body;
-      const userId = req.user.id;
+trackInteraction: async (req, res) => {
+  try {
+    const { laptopId, interactionType, rating, note } = req.body;
+    const userId = req.user.id;
+    
+    // Find or create user preferences
+    let userPrefs = await UserPreference.findOne({ userId });
+    
+    if (!userPrefs) {
+      userPrefs = await UserPreference.create({ 
+        userId,
+        preferences: {
+          budget: { min: 0, max: 5000, currency: 'EUR' },
+          performance: { importance: 5, usage: [] },
+          portability: { importance: 5, maxWeight: 2.5 },
+          display: { importance: 5, minSize: 13, touchscreen: false, highRefreshRate: false },
+          battery: { importance: 5, minHours: 6 }
+        }
+      });
+    }
+    
+    if (interactionType === 'view') {
+      // Check if already viewed
+      const alreadyViewedIndex = userPrefs.viewedLaptops.findIndex(
+        v => v.laptopId.toString() === laptopId
+      );
       
-      const userPrefs = await UserPreference.findOne({ userId });
-      if (!userPrefs) {
-        return res.status(404).json({
-          success: false,
-          error: 'User preferences not found'
+      if (alreadyViewedIndex !== -1) {
+        // Update existing view
+        userPrefs.viewedLaptops[alreadyViewedIndex].viewedAt = new Date();
+        if (rating) userPrefs.viewedLaptops[alreadyViewedIndex].rating = rating;
+      } else {
+        // Add new view
+        userPrefs.viewedLaptops.push({
+          laptopId,
+          viewedAt: new Date(),
+          rating: rating || null
         });
       }
       
-      if (interactionType === 'view') {
-        // Add to viewed laptops if not already there
-        const alreadyViewed = userPrefs.viewedLaptops.find(
-          v => v.laptopId.toString() === laptopId
-        );
-        
-        if (!alreadyViewed) {
-          userPrefs.viewedLaptops.push({
-            laptopId,
-            viewedAt: new Date(),
-            rating
-          });
-        }
-      } else if (interactionType === 'save') {
-        // Add to saved laptops
+      // Keep only last 50 viewed items
+      if (userPrefs.viewedLaptops.length > 50) {
+        userPrefs.viewedLaptops = userPrefs.viewedLaptops.slice(-50);
+      }
+    } else if (interactionType === 'save') {
+      // Add to saved laptops if not already saved
+      const alreadySaved = userPrefs.savedLaptops.find(
+        s => s.laptopId.toString() === laptopId
+      );
+      
+      if (!alreadySaved) {
         userPrefs.savedLaptops.push({
           laptopId,
           savedAt: new Date(),
-          note
+          note: note || ''
         });
       }
-      
-      await userPrefs.save();
-      
-      res.json({
-        success: true,
-        message: `Laptop ${interactionType}d successfully`
-      });
-      
-    } catch (error) {
-      console.error('Track interaction error:', error);
-      res.status(500).json({
-        success: false,
-        error: 'Failed to track interaction'
-      });
     }
+    
+    await userPrefs.save();
+    
+    res.json({
+      success: true,
+      message: `Laptop ${interactionType}d successfully`
+    });
+    
+  } catch (error) {
+    console.error('Track interaction error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to track interaction'
+    });
   }
+}
 };
-
 // Helper functions
 function calculateMatchScore(laptop, preferences) {
   let score = 0;
