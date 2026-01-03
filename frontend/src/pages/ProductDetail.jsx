@@ -23,7 +23,7 @@ const ProductDetail = () => {
   const { addToCart, addToWishlist } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const { user } = useAuth();
-
+  const EUR_TO_LKR = 316;
   useEffect(() => {
     loadProduct();
   }, [id]);
@@ -124,6 +124,15 @@ const ProductDetail = () => {
       currency: 'USD'
     }).format(price);
   };
+
+  const formatEuroToLKR = (priceInEuro) => {
+  const priceInLKR = priceInEuro * EUR_TO_LKR;
+
+  return new Intl.NumberFormat('en-LK', {
+    style: 'currency',
+    currency: 'LKR',
+  }).format(priceInLKR);
+};
 
   const getSpecificationIcon = (key) => {
     switch(key.toLowerCase()) {
@@ -282,30 +291,29 @@ const ProductDetail = () => {
                 </div>
               </div>
 
-              {/* Price */}
-              <div className="mb-6 p-4 bg-blue-50 rounded-lg">
-                <div className="flex items-center space-x-4 mb-2">
-                  <span className="text-4xl font-bold text-gray-900">
-                    {formatPrice(laptop.price?.current || 0)}
-                  </span>
-                  {laptop.price?.original && laptop.price.original > laptop.price.current && (
-                    <>
-                      <span className="text-2xl text-gray-500 line-through">
-                        {formatPrice(laptop.price.original)}
-                      </span>
-                      <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">
-                        Save {formatPrice(laptop.price.original - laptop.price.current)}
-                      </span>
-                    </>
-                  )}
-                </div>
-                {laptop.price?.original && laptop.price.original > laptop.price.current && (
-                  <div className="text-sm text-gray-600">
-                    <span className="font-medium">Save {Math.round((1 - laptop.price.current / laptop.price.original) * 100)}%</span> off original price
-                  </div>
-                )}
-              </div>
-
+           {/* Price */}
+<div className="mb-6 p-4 bg-blue-50 rounded-lg">
+  <div className="mb-2">
+    <span className="text-4xl font-bold text-gray-900 block">
+      {formatEuroToLKR(laptop.price?.current || 0)}
+    </span>
+    {laptop.price?.original && laptop.price.original > laptop.price.current && (
+      <div className="flex items-center space-x-4 mt-2">
+        <span className="text-2xl text-gray-500 line-through">
+          {formatEuroToLKR(laptop.price.original)}
+        </span>
+        <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">
+          Save {formatEuroToLKR(laptop.price.original - laptop.price.current)}
+        </span>
+      </div>
+    )}
+  </div>
+  {laptop.price?.original && laptop.price.original > laptop.price.current && (
+    <div className="text-sm text-gray-600">
+      <span className="font-medium">Save {Math.round((1 - laptop.price.current / laptop.price.original) * 100)}%</span> off original price
+    </div>
+  )}
+</div>
               {/* Quick Specs */}
               <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                 <h3 className="font-semibold text-gray-900 mb-3">Quick Specifications</h3>

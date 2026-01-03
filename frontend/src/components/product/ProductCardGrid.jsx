@@ -11,7 +11,7 @@ const ProductCardGrid = ({ laptop }) => {
       {/* Image */}
       <div className="relative overflow-hidden bg-gray-100">
         <img
-          src={laptop.images?.[0] || 'https://via.placeholder.com/300x200'}
+          src={laptop.images?.[0] || 'https://lapgadgets.in/wp-content/plugins/elementor/assets/images/placeholder.png'}
           alt={laptop.name}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
@@ -56,11 +56,11 @@ const ProductCardGrid = ({ laptop }) => {
         <div className="mt-3">
           <div className="flex items-center space-x-2">
             <span className="text-xl font-bold text-gray-900">
-              ${laptop.price?.current || 0}
+              Rs.{(laptop.price?.current * 316) || 0}
             </span>
             {laptop.price?.original && laptop.price.original > laptop.price.current && (
               <span className="text-sm text-gray-500 line-through">
-                ${laptop.price.original}
+                Rs.{(laptop.price.original * 316) || 0}
               </span>
             )}
           </div>

@@ -13,7 +13,7 @@ const ProductCardList = ({ laptop }) => {
         {/* Image */}
         <div className="md:w-1/4">
           <img
-            src={laptop.images?.[0] || 'https://via.placeholder.com/300x200'}
+            src={laptop.images?.[0] || 'https://lapgadgets.in/wp-content/plugins/elementor/assets/images/placeholder.png'}
             alt={laptop.name}
             className="w-full h-48 md:h-40 object-cover"
           />
@@ -66,11 +66,11 @@ const ProductCardList = ({ laptop }) => {
             <div className="mt-4 md:mt-0 md:ml-6">
               <div className="text-right">
                 <div className="text-2xl font-bold text-gray-900">
-                  ${laptop.price?.current || 0}
+                  Rs.{(laptop.price?.current * 316) || 0}
                 </div>
                 {laptop.price?.original && laptop.price.original > laptop.price.current && (
                   <div className="text-sm text-gray-500 line-through">
-                    ${laptop.price.original}
+                    Rs.{(laptop.price.original * 316) || 0}
                   </div>
                 )}
                 <div className="text-sm text-green-600 mt-1">
