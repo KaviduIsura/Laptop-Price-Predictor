@@ -160,24 +160,31 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm border-b">
+    <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
       {/* Top Bar */}
-      <div className="container mx-auto px-4 py-3">
+      <div className="container px-4 py-3 mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-blue-600">LaptopStore</div>
-          </Link>
+  <img
+    src="/logo.png"
+    alt="Laptop Wizard Logo"
+    className="object-contain w-12 h-12"
+  />
+  <span className="text-2xl font-bold text-blue-600">
+    Laptop Wizard
+  </span>
+</Link>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-8">
+          <div className="flex-1 hidden max-w-2xl mx-8 md:flex">
             <form onSubmit={handleSearch} className="w-full">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                 <input
                   type="text"
                   placeholder="Search laptops by brand, model, RAM, SSD..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -185,7 +192,7 @@ const Header = () => {
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute text-gray-400 transform -translate-y-1/2 right-3 top-1/2 hover:text-gray-600"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -198,17 +205,17 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* User Actions */}
             {user ? (
-              <div className="hidden md:flex items-center space-x-4">
+              <div className="items-center hidden space-x-4 md:flex">
                 <div className="relative user-dropdown-container">
                   <button 
-                    className="flex items-center space-x-1 p-2 rounded-lg hover:bg-gray-100"
+                    className="flex items-center p-2 space-x-1 rounded-lg hover:bg-gray-100"
                     onClick={toggleUserDropdown}
                   >
                     <User className="w-5 h-5" />
                     <span className="hidden lg:inline">{user.name}</span>
                   </button>
                   {userDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-10">
+                    <div className="absolute right-0 z-10 w-48 mt-2 bg-white border rounded-lg shadow-lg">
                       <Link 
                         to="/dashboard" 
                         className="flex items-center px-4 py-2 hover:bg-gray-100"
@@ -247,7 +254,7 @@ const Header = () => {
                           handleDropdownLinkClick();
                           logout();
                         }} 
-                        className="flex items-center w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 border-t"
+                        className="flex items-center w-full px-4 py-2 text-left text-red-600 border-t hover:bg-gray-100"
                       >
                         <X className="w-4 h-4 mr-2" />
                         Logout
@@ -257,7 +264,7 @@ const Header = () => {
                 </div>
               </div>
             ) : (
-              <Link to="/login" className="hidden md:block text-blue-600 hover:text-blue-700">
+              <Link to="/login" className="hidden text-blue-600 md:block hover:text-blue-700">
                 Login / Register
               </Link>
             )}
@@ -266,7 +273,7 @@ const Header = () => {
             <Link to="/wishlist" className="relative p-2">
               <Heart className="w-6 h-6" />
               {wishlist.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute flex items-center justify-center w-5 h-5 text-xs text-white bg-red-500 rounded-full -top-1 -right-1">
                   {wishlist.length}
                 </span>
               )}
@@ -276,7 +283,7 @@ const Header = () => {
             <Link to="/cart" className="relative p-2">
               <ShoppingCart className="w-6 h-6" />
               {cart.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute flex items-center justify-center w-5 h-5 text-xs text-white bg-blue-600 rounded-full -top-1 -right-1">
                   {cart.length}
                 </span>
               )}
@@ -284,7 +291,7 @@ const Header = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2"
+              className="p-2 md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -296,11 +303,11 @@ const Header = () => {
         <div className="mt-3 md:hidden">
           <form onSubmit={handleSearch}>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
               <input
                 type="text"
                 placeholder="Search laptops..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg"
+                className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -308,7 +315,7 @@ const Header = () => {
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute text-gray-400 transform -translate-y-1/2 right-3 top-1/2 hover:text-gray-600"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -319,13 +326,13 @@ const Header = () => {
       </div>
 
       {/* Category Navigation */}
-      <nav className="bg-gray-50 border-t">
-        <div className="container mx-auto px-4">
-          <div className="hidden md:flex items-center space-x-4 py-2 overflow-x-auto">
+      <nav className="border-t bg-gray-50">
+        <div className="container px-4 mx-auto">
+          <div className="items-center hidden py-2 space-x-4 overflow-x-auto md:flex">
             {loading ? (
               <div className="flex space-x-4">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="h-8 bg-gray-200 rounded w-24 animate-pulse"></div>
+                  <div key={i} className="w-24 h-8 bg-gray-200 rounded animate-pulse"></div>
                 ))}
               </div>
             ) : (
@@ -333,7 +340,7 @@ const Header = () => {
                 <button
                   key={category.name}
                   onClick={() => handleCategoryClick(category.name)}
-                  className="flex items-center whitespace-nowrap px-3 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-white rounded-lg transition-all"
+                  className="flex items-center px-3 py-2 text-sm text-gray-700 transition-all rounded-lg whitespace-nowrap hover:text-blue-600 hover:bg-white"
                 >
                   {category.icon}
                   <span>{category.displayName || formatCategoryName(category.name)}</span>
@@ -345,14 +352,14 @@ const Header = () => {
             )}
             
             {/* Extra Navigation Links */}
-            <div className="flex items-center space-x-4 ml-auto pl-4 border-l">
+            <div className="flex items-center pl-4 ml-auto space-x-4 border-l">
               <Link to="/compare" className="text-sm text-gray-700 hover:text-blue-600">
                 Compare
               </Link>
               <Link to="/predict" className="text-sm text-gray-700 hover:text-blue-600">
                 Price Predictor
               </Link>
-              <Link to="/deals" className="text-sm text-red-600 hover:text-red-700 font-medium">
+              <Link to="/deals" className="text-sm font-medium text-red-600 hover:text-red-700">
                 🔥 Deals
               </Link>
             </div>
@@ -363,39 +370,39 @@ const Header = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t max-h-[80vh] overflow-y-auto">
-          <div className="container mx-auto px-4 py-4">
+          <div className="container px-4 py-4 mx-auto">
             {/* User Section */}
             {!user ? (
               <div className="mb-4">
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center py-3 bg-blue-600 text-white rounded-lg mb-2"
+                  className="block w-full py-3 mb-2 text-center text-white bg-blue-600 rounded-lg"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center py-3 border border-blue-600 text-blue-600 rounded-lg"
+                  className="block w-full py-3 text-center text-blue-600 border border-blue-600 rounded-lg"
                 >
                   Register
                 </Link>
               </div>
             ) : (
-              <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                <div className="font-medium mb-2">Welcome, {user.name}</div>
+              <div className="p-3 mb-4 rounded-lg bg-gray-50">
+                <div className="mb-2 font-medium">Welcome, {user.name}</div>
                 <div className="grid grid-cols-2 gap-2">
                   <Link 
                     to="/dashboard" 
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-center py-2 bg-white border rounded"
+                    className="py-2 text-center bg-white border rounded"
                   >
                     Dashboard
                   </Link>
                   <button 
                     onClick={() => { logout(); setMobileMenuOpen(false); }}
-                    className="text-center py-2 bg-red-50 text-red-600 border border-red-200 rounded"
+                    className="py-2 text-center text-red-600 border border-red-200 rounded bg-red-50"
                   >
                     Logout
                   </button>
@@ -405,7 +412,7 @@ const Header = () => {
 
             {/* Categories Section */}
             <div className="mb-4">
-              <h3 className="font-medium mb-3 text-gray-900">Categories</h3>
+              <h3 className="mb-3 font-medium text-gray-900">Categories</h3>
               <div className="grid grid-cols-2 gap-2">
                 {loading ? (
                   [...Array(6)].map((_, i) => (
@@ -416,13 +423,13 @@ const Header = () => {
                     <button
                       key={category.name}
                       onClick={() => handleCategoryClick(category.name)}
-                      className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg border hover:border-blue-300 hover:bg-blue-50 transition-colors"
+                      className="flex flex-col items-center justify-center p-3 transition-colors border rounded-lg bg-gray-50 hover:border-blue-300 hover:bg-blue-50"
                     >
-                      <div className="text-lg mb-1">{category.icon}</div>
+                      <div className="mb-1 text-lg">{category.icon}</div>
                       <div className="text-xs font-medium text-center">
                         {category.displayName || formatCategoryName(category.name)}
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">{category.count}</div>
+                      <div className="mt-1 text-xs text-gray-500">{category.count}</div>
                     </button>
                   ))
                 )}
@@ -430,8 +437,8 @@ const Header = () => {
             </div>
 
             {/* Quick Links */}
-            <div className="border-t pt-4">
-              <h3 className="font-medium mb-3 text-gray-900">Quick Links</h3>
+            <div className="pt-4 border-t">
+              <h3 className="mb-3 font-medium text-gray-900">Quick Links</h3>
               <div className="space-y-2">
                 <Link 
                   to="/compare" 
@@ -458,7 +465,7 @@ const Header = () => {
                 <Link 
                   to="/deals" 
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center py-2 text-red-600 hover:text-red-700 font-medium"
+                  className="flex items-center py-2 font-medium text-red-600 hover:text-red-700"
                 >
                   <span>🔥 Hot Deals</span>
                 </Link>

@@ -84,7 +84,7 @@ const Register = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
-            <div className="text-3xl font-bold text-blue-600">LaptopStore</div>
+            <div className="text-3xl font-bold text-blue-600">Laptop Wizard</div>
           </Link>
           <h2 className="mt-6 text-2xl font-bold text-gray-900">
             Create your account
